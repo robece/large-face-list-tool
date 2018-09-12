@@ -287,6 +287,24 @@ namespace LargeFaceListTool
                     return result;
                 }
             }
+        
+            public static async Task<GetFaceFromList> GetFaceInLargeFaceListAsync(string persistedFaceId)
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Settings.FaceAPIKey);
+                    var response = await client.GetAsync($"https://{Settings.Zone}.api.cognitive.microsoft.com/face/v1.0/largefacelists/{Settings.LargeFaceListId}/persistedfaces/{persistedFaceId}");
+
+                    GetFaceFromList result = null;
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var json = await response.Content.ReadAsStringAsync();
+                        result = JsonConvert.DeserializeObject<GetFaceFromList>(json);
+                    }
+                    return result;
+                }
+            }
+
         }
     }
 }

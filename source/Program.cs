@@ -45,7 +45,7 @@ namespace LargeFaceListTool
                     Console.WriteLine("[ 5 ] Set ImageFolderPath, MetadataFolderPath and FindSimilarFolderPath for training");
                     Console.WriteLine("[ 6 ] Add faces to large face list");
                     Console.WriteLine("[ 7 ] Train large face list");
-                    Console.WriteLine("[ 8 ] Find similar faces in large list");
+                    Console.WriteLine("[ 8 ] Find similar faces in all large lists");
                     Console.WriteLine("[ 0 ] Terminate"); 
                     Console.WriteLine("-------------------------------------"); 
                     Console.Write("Select an option: "); 
@@ -74,7 +74,7 @@ namespace LargeFaceListTool
                             TrainLargeFaceList();
                             break;
                         case 8:
-                            ValidateFindSimilarFacesInLargeFaceList();
+                            ValidateFindSimilarFacesInAllLargeFaceLists();
                             break;
                         default: 
                             Terminate(); 
@@ -123,8 +123,8 @@ namespace LargeFaceListTool
 
         private async static void ListOfLargeFaceListAsync() 
         { 
-            List<ListOfLargeFaceList> list = await FaceHelper.LargeFaceList.ListOfLargeFaceListAsync();
-            foreach(ListOfLargeFaceList lfl in list)
+            List<ListOfLargeFaceList> faceList = await FaceHelper.LargeFaceList.ListOfLargeFaceListAsync();
+            foreach(ListOfLargeFaceList lfl in faceList)
                 Console.WriteLine($"{lfl.largeFaceListId}");
 
             Console.WriteLine($"Task ended");
@@ -132,8 +132,8 @@ namespace LargeFaceListTool
 
         private async static void DeleteAllLargeFaceListsAsync() 
         { 
-            List<ListOfLargeFaceList> list = await FaceHelper.LargeFaceList.ListOfLargeFaceListAsync();
-            foreach(ListOfLargeFaceList lfl in list)
+            List<ListOfLargeFaceList> faceList = await FaceHelper.LargeFaceList.ListOfLargeFaceListAsync();
+            foreach(ListOfLargeFaceList lfl in faceList)
             {
                 bool res = await FaceHelper.LargeFaceList.DeleteLargeFaceListAsync(lfl.largeFaceListId);
                 if (res)
@@ -302,7 +302,7 @@ namespace LargeFaceListTool
             Console.WriteLine($"Task ended");
         }
 
-        private static void ValidateFindSimilarFacesInLargeFaceList() 
+        private static void ValidateFindSimilarFacesInAllLargeFaceLists() 
         {
             Console.WriteLine($"Confirm you want to find similar faces in a large face list with the following settings: ");
 
@@ -314,7 +314,7 @@ namespace LargeFaceListTool
             if (res == "yes")
             {
                 Console.WriteLine("Finding similar faces");
-                FindSimilarFacesInLargeFaceList();
+                FindSimilarFacesInAllLargeFaceListsAsync();
             }
             else
             {
@@ -324,11 +324,10 @@ namespace LargeFaceListTool
             Console.WriteLine($"Task ended");
         }
 
-        private static void FindSimilarFacesInLargeFaceList()
+        private async static void FindSimilarFacesInAllLargeFaceListsAsync()
         {
             using (var operation = telemetryClient.StartOperation<RequestTelemetry>("FindSimilarFacesInLargeFaceList"))
             {
-                
                 var filePath = Path.Combine(Settings.FindSimilarFolderPath, "input.jpg");
                 var imageBytes = File.ReadAllBytes(filePath);
                 var stream = new System.IO.MemoryStream(imageBytes);
@@ -363,11 +362,53 @@ namespace LargeFaceListTool
                 {
                     var detectedFaceId = list.First()["faceId"].ToString();
 
-                    List<FindSimilar> similarFaces = FaceHelper.Face.FindSimilarFacesAsync(detectedFaceId, 10).Result;
+                    List<FindSimilar> facesFoundInAllFaceLists = new List<FindSimilar>();
+                    List<ListOfLargeFaceList> faceList = await FaceHelper.LargeFaceList.ListOfLargeFaceListAsync();
 
-                    foreach(FindSimilar fs in similarFaces)
+                    int processed = 0;
+                    if(Parallel.ForEach(faceList, (s) => {
+                        try
+                        {
+                            Settings.LargeFaceListId = s.largeFaceListId;
+                            Console.WriteLine($"Find similar faces in LargeFaceListId: {s.largeFaceListId}");
+                            telemetryClient.TrackTrace($"Find similar faces in LargeFaceListId: {s.largeFaceListId}");
+
+                            List<FindSimilar> similarFaces = FaceHelper.Face.FindSimilarFacesAsync(detectedFaceId, 10).Result;
+
+                            foreach(FindSimilar fs in similarFaces)
+                            {
+                                facesFoundInAllFaceLists.Add(fs);
+                            }
+
+                            processed++;
+                        }
+                        catch (System.IO.FileNotFoundException ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            telemetryClient.TrackException(ex);
+                            return;
+                        }
+                    }).IsCompleted)
                     {
-                        Console.WriteLine($"PersistedFaceId: {fs.persistedFaceId}, Confidence: {fs.confidence}");
+                        if(Parallel.ForEach(facesFoundInAllFaceLists, (fs) => {
+                            try
+                            {
+                                GetFaceFromList face = FaceHelper.LargeFaceList.GetFaceInLargeFaceListAsync(fs.persistedFaceId).Result;
+
+                                Console.WriteLine($"PersistedFaceId: {fs.persistedFaceId}, UserData: {face.userData}, Confidence: {fs.confidence}");
+                                telemetryClient.TrackTrace($"PersistedFaceId: {fs.persistedFaceId}, UserData: {face.userData}, Confidence: {fs.confidence}");
+                            }
+                            catch (System.IO.FileNotFoundException ex)
+                            {
+                                Console.WriteLine(ex.Message);
+                                telemetryClient.TrackException(ex);
+                                return;
+                            }
+                        }).IsCompleted)
+                        {
+                            Console.WriteLine($"Processed lists: {processed}");
+                            telemetryClient.TrackTrace($"Processed lists: {processed}");
+                        }
                     }
                 }
 
