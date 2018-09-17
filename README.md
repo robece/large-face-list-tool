@@ -45,10 +45,10 @@ Now it's time to create or use an existing large face list.
 In the top of the console there are some settings needed:
 
 Settings required:
-- LargeFaceListId: PENDING TO CONFIGURE!
-- ImageFolderPath: PENDING TO CONFIGURE!
-- MetadataFolderPath: PENDING TO CONFIGURE!
-- FindSimilarFolderPath: PENDING TO CONFIGURE!
+- LargeFaceListId: PENDING CONFIGURATION!
+- ImageFolderPath: PENDING CONFIGURATION!
+- MetadataFolderPath: PENDING CONFIGURATION!
+- FindSimilarFolderPath: PENDING CONFIGURATION!
 
 You can configure this with options:
 
