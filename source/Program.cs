@@ -25,16 +25,16 @@ namespace LargeFaceListTool
                 {
                     Console.WriteLine($"Settings required:");
                 
-                    var tLargeFaceListId = (Settings.LargeFaceListId == string.Empty) ? "PENDING TO CONFIGURE!" : Settings.LargeFaceListId;
+                    var tLargeFaceListId = (Settings.LargeFaceListId == string.Empty) ? "PENDING CONFIGURATION!" : Settings.LargeFaceListId;
                     Console.WriteLine($"- LargeFaceListId: {tLargeFaceListId}");
 
-                    var tImageFolderPath = (Settings.ImageFolderPath == string.Empty) ? "PENDING TO CONFIGURE!" : Settings.ImageFolderPath;
+                    var tImageFolderPath = (Settings.ImageFolderPath == string.Empty) ? "PENDING CONFIGURATION!" : Settings.ImageFolderPath;
                     Console.WriteLine($"- ImageFolderPath: {tImageFolderPath}");
 
-                    var tMetadataFolderPath = (Settings.MetadataFolderPath == string.Empty) ? "PENDING TO CONFIGURE!" : Settings.MetadataFolderPath;
+                    var tMetadataFolderPath = (Settings.MetadataFolderPath == string.Empty) ? "PENDING CONFIGURATION!" : Settings.MetadataFolderPath;
                     Console.WriteLine($"- MetadataFolderPath: {tMetadataFolderPath}");
 
-                    var tFindSimilarFolderPath = (Settings.FindSimilarFolderPath == string.Empty) ? "PENDING TO CONFIGURE!" : Settings.FindSimilarFolderPath;
+                    var tFindSimilarFolderPath = (Settings.FindSimilarFolderPath == string.Empty) ? "PENDING CONFIGURATION!" : Settings.FindSimilarFolderPath;
                     Console.WriteLine($"- FindSimilarFolderPath: {tFindSimilarFolderPath}");
 
                     Console.WriteLine();
