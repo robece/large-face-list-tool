@@ -9,5 +9,7 @@ namespace LargeFaceListTool
         public static string LargeFaceListId { get; set; } = "";
         public static string ImageFolderPath { get; set; } = "";
         public static string FindSimilarFolderPath { get; set; } = "";
+        public static int AddFaceRetries { get; set; } = 0;
+        public static int AddFaceTimeToSleepInMs { get; set; } = 0;
     }
 }

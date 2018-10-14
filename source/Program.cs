@@ -29,6 +29,8 @@ namespace LargeFaceListTool
             Settings.AppInsightsKey = config.GetSection("general:AppInsightsKey").Value;
             Settings.ImageFolderPath = config.GetSection("general:ImageFolderPath").Value;
             Settings.FindSimilarFolderPath = config.GetSection("general:FindSimilarFolderPath").Value;
+            Settings.AddFaceRetries = Convert.ToInt32(config.GetSection("general:AddFaceRetries").Value);
+            Settings.AddFaceTimeToSleepInMs = Convert.ToInt32(config.GetSection("general:AddFaceTimeToSleepInMs").Value);
 
             APIReference.FaceAPIKey = Settings.FaceAPIKey;
             APIReference.FaceAPIZone = Settings.FaceAPIZone;
@@ -183,8 +185,8 @@ namespace LargeFaceListTool
             stopwatch.Start();
 
             var processed = 0;
-            var IterationsToRetry = 3;
-            var TimeToSleepForRetry = 2000;
+            var IterationsToRetry = Settings.AddFaceRetries;
+            var TimeToSleepForRetry = Settings.AddFaceTimeToSleepInMs;
 
             using (var operation = telemetryClient.StartOperation<RequestTelemetry>("Add face to large face list"))
             {
