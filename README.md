@@ -71,16 +71,6 @@ Remember that you can access to App Insigths -> Search to verify the activity an
 - [ 7 ] Find similar faces in all large lists
 
 <div style="text-align:center">
-    <img src="http://rcervantes.me/images/large-face-list-tool-telemetry1.png" />
+    <img src="http://rcervantes.me/images/large-face-list-tool-telemetry.png" />
 </div>
 <br/>
-
-<div style="text-align:center">
-    <img src="http://rcervantes.me/images/large-face-list-tool-telemetry2.png" />
-</div>
-<br/>
-
-<div style="text-align:center">
-    <img src="http://rcervantes.me/images/large-face-list-tool-telemetry3.png" />
-</div>
-
