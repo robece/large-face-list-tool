@@ -23,6 +23,7 @@ Large face list tool, is a console application created to facilitate the Large F
 
 Edit the file config.ini with the correct values:
 
+```bash
 [general]
 AzureWebJobsStorage="AZURE_STORAGE_CONNECTION_STRING"
 FaceAPIKey="FACE_API_KEY"
@@ -32,6 +33,7 @@ ImageFolderPath="Path of the folder used to allocate all images for a massive ma
 FindSimilarFolderPath="Path of the folder used to allocate the input image to query all large face lists"
 AddFaceRetries="Number of retries in add faces process"
 AddFaceTimeToSleepInMs="Milliseconds to wait in case of an exception in add faces process"
+```
 
 Copy sample\Workspace folder from the repo to C:\Workspace\
 
