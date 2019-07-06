@@ -3,7 +3,7 @@
 This project is a console application created to facilitate the Large Face List manipulation.
 
 <div style="text-align:center">
-    <img src="https://github.com/robece/large-face-list-tool/blob/master/images/large-face-list-tool-console.png?raw=true" width="500" />
+    <img src="https://github.com/robece/large-face-list-tool/blob/master/images/large-face-list-tool-console.png?raw=true" width="800" />
 </div>
 <br/>
 
@@ -75,6 +75,6 @@ Remember that you can access to App Insigths -> Search to verify the activity an
 - [ 7 ] Find similar faces in all large lists
 
 <div style="text-align:center">
-    <img src="https://github.com/robece/large-face-list-tool/blob/master/images/large-face-list-tool-telemetry.png?raw=true" width="500" />
+    <img src="https://github.com/robece/large-face-list-tool/blob/master/images/large-face-list-tool-telemetry.png?raw=true" width="800" />
 </div>
 <br/>
