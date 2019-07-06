@@ -1,7 +1,9 @@
-Large face list tool, is a console application created to facilitate the Large Face List manipulation.
+## Large Face List Tool
+
+This project is a console application created to facilitate the Large Face List manipulation.
 
 <div style="text-align:center">
-    <img src="http://rcervantes.me/images/large-face-list-tool-console.png" width="800" />
+    <img src="https://github.com/robece/large-face-list-tool/blob/master/images/large-face-list-tool-console.png?raw=true" width="800" />
 </div>
 <br/>
 
@@ -15,7 +17,7 @@ Large face list tool, is a console application created to facilitate the Large F
 
 ## Setup the project
 
-#### Clone the project from GitHub repo
+**Clone the project from GitHub repo**
 
 `git clone https://github.com/rcervantes/large-face-list-tool.git`
 
@@ -42,7 +44,7 @@ Workspace folder contains:
 - Images folder: "Folder used to allocate all images for a massive manipulation"
 - FindSimilar folder: "Folder used to allocate the input image to query all large face lists"
 
-#### Important: The name of the image must be the same name of the json file, the json file must contain a "Unique Business Identificator" for the face.
+**Important: The name of the image must be the same name of the json file, the json file must contain a "Unique Business Identificator" for the face.**
 
 ## Running the console app
 
@@ -73,6 +75,6 @@ Remember that you can access to App Insigths -> Search to verify the activity an
 - [ 7 ] Find similar faces in all large lists
 
 <div style="text-align:center">
-    <img src="http://rcervantes.me/images/large-face-list-tool-telemetry.png" />
+    <img src="https://github.com/robece/large-face-list-tool/blob/master/images/large-face-list-tool-telemetry.png?raw=true" />
 </div>
 <br/>
