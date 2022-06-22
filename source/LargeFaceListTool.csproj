@@ -9,7 +9,7 @@
     <PackageReference Include="Cognitive.Face.Dotnet" Version="1.0.2" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Ini" Version="2.1.1" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="Microsoft.ApplicationInsights" Version="2.8.0" />
     <PackageReference Include="Terminal.Gui" Version="0.16.0" />
     <PackageReference Include="WindowsAzure.Storage" Version="9.3.2" />
